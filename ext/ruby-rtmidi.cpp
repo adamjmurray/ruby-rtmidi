@@ -1,6 +1,6 @@
 #include "RtMidi.h"
 #include "RtError.h"
-#include <cstdlib> // load vectors for output messages
+#include <vector>
 #include <iostream> // TODO: can probably stop including this later when done debugging
 
 #include "ruby-rtmidi.h"
@@ -71,9 +71,9 @@ void midiout_close_port(rtmidi_ptr p) {
 
 void midiout_send_message(rtmidi_ptr p, int byte1, int byte2, int byte3) {
   RtMidiOut *midiout = static_cast<RtMidiOut *>(p);
-  std::vector<unsigned char> message;
-  message.push_back(byte1);
-  message.push_back(byte2);
-  message.push_back(byte3);
-  midiout->sendMessage( &message );
+  static std::vector<unsigned char> message(3); // static so we don't keep constructing and destructing objects
+  message[0] = byte1;
+  message[1] = byte2;
+  message[2] = byte3;
+  midiout->sendMessage(&message);
 }
