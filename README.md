@@ -15,7 +15,7 @@ Development Notes
 =================
 
 Currently only working on OS X.
-So far, just have a basic proof-of-concept to list the available MIDI inputs via Ruby.
+So far, just have a basic proof-of-concept to list the available MIDI inputs and outputs via Ruby.
 
 To build, you need XCode and the command line tools. Specifically, you need g++ on your PATH. 
 Then, from the root of this repository you can do:
