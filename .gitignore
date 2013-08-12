@@ -1,6 +1,9 @@
+Gemfile.lock
+
 /tmp
 
-Gemfile.lock
+/ext/*.o
+/ext/*.so
 
 /rtmidi-2.0.1/doc
 /rtmidi-2.0.1/msw
