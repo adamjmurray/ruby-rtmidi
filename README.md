@@ -14,8 +14,9 @@ Once this is further along I intend to release this as a Ruby gem called 'rtmidi
 Development Notes
 =================
 
-Currently only working on OS X.
-So far, just have a basic proof-of-concept to list the available MIDI inputs and outputs via Ruby.
+Currently only working on OS X (although in theory it will work on Windows if you compile the ext folder manually).
+So far you can list MIDI I/O ports, send 3-byte messages to output ports, and listen for 3-byte message on input ports
+(in other words, no support for sysex messages yet). 
 
 To build, you need XCode and the command line tools. Specifically, you need g++ on your PATH. 
 Then, from the root of this repository you can do:
