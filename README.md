@@ -22,4 +22,4 @@ Then, from the root of this repository you can do:
 
     bundle install
     bundle exec rake
-    ruby lib/rtmidi.rb
+    ruby examples/list_ports.rb

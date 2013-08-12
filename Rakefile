@@ -49,5 +49,5 @@ task :make do
   puts
 
   puts "Compiled #{EXT_DIR}/ruby-rtmidi.so"
-  puts "Test it out by running: ruby lib/rtmidi.rb"
+  puts "Test it out by running: ruby examples/list_ports.rb"
 end

@@ -1,0 +1,28 @@
+module RtMidi
+
+  class In
+
+    def initialize
+      @midiin = Interface::new_midiin()
+      at_exit{ Interface::delete_midiin @midiin }
+    end
+
+    def port_count      
+      @port_count ||= Interface::midiin_port_count(@midiin)
+    end
+
+    def port_name(index)
+      port_names[index]
+    end
+
+    def port_names
+      @port_namess ||= (
+        names = []
+        port_count.times{|i| names << Interface::midiin_port_name(@midiin, i) }
+        names
+      )       
+    end
+
+  end
+
+end
