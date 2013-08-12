@@ -3,8 +3,8 @@ module RtMidi
   class In
 
     def initialize
-      @midiin = Interface::new_midiin()
-      at_exit{ Interface::delete_midiin @midiin }
+      @midiin = Interface::midiin_new()
+      at_exit{ Interface::midiin_delete @midiin }
     end
 
     def port_count      
@@ -23,6 +23,14 @@ module RtMidi
       )       
     end
 
+    def open_port(index)
+      Interface::midiin_open_port(@midiin, index)
+    end
+
+    def close_port()
+      Interface::midiin_close_port(@midiin)
+    end
+    
   end
 
 end
