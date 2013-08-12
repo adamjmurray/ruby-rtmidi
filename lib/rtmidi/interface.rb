@@ -25,6 +25,13 @@ module RtMidi
     # void midiin_close_port(rtmidi_ptr p, int port_index);
     attach_function :midiin_close_port, [:pointer], :void
 
+    # void midiin_ignore_types(rtmidi_ptr p, bool sysex, bool timing, bool active_sensing);
+    attach_function :midiin_ignore_types, [:pointer, :bool, :bool, :bool], :void
+
+    callback :rtmidi_callback, [:double, :pointer, :pointer], :void
+    # void midiin_set_callback(rtmidi_ptr p); // TODO: actually set a callback
+    attach_function :midiin_set_callback, [:pointer], :void
+    
   
     #####################################
     # OUTPUT

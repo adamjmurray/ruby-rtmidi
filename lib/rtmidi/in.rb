@@ -30,7 +30,13 @@ module RtMidi
     def close_port()
       Interface::midiin_close_port(@midiin)
     end
-    
+
+    # TODO: enable sysex listening by hooking up to midiin_ignore_types
+
+    def set_callback # TODO: actually support a callback
+      Interface::midiin_set_callback(@midiin)
+    end
+
   end
 
 end
