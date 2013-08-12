@@ -15,9 +15,13 @@ until port_index
   puts "Invalid port number" unless port_index
 end
 
+midiin.set_callback do |byte1, byte2, byte3|  
+  puts "#{byte1} #{byte2} #{byte3}"
+end
+
+puts "Listening for MIDI messages..."
+puts "Ctrl+C to exit"
+
 midiin.open_port(port_index)
 
-midiin.set_callback()
-
-puts "Ctrl+C to exit"
-loop{ sleep 1 }
+loop{ sleep 1 } # prevent Ruby from exiting immediately

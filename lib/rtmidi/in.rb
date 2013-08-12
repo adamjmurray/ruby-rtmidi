@@ -32,9 +32,14 @@ module RtMidi
     end
 
     # TODO: enable sysex listening by hooking up to midiin_ignore_types
+    # but that will require a more flexible callback interface
 
-    def set_callback # TODO: actually support a callback
-      Interface::midiin_set_callback(@midiin)
+    def set_callback &callback      
+      Interface::midiin_set_callback(@midiin, callback)
+    end
+
+    def cancel_callback
+      Interface::midiin_cancel_callback(@midiin)
     end
 
   end

@@ -42,18 +42,28 @@ void midiin_ignore_types(rtmidi_ptr p, bool sysex, bool timing, bool active_sens
   midiin->ignoreTypes(sysex, timing, active_sensing);
 }
 
-void mycallback( double deltatime, std::vector< unsigned char > *message, void *userData )
+void midiin_callback_proxy( double deltatime, std::vector< unsigned char > *message, void *userData )
 {
-  unsigned int nBytes = message->size();
-  for ( unsigned int i=0; i<nBytes; i++ )
-    std::cout << "Byte " << i << " = " << (int)message->at(i) << ", ";
-  if ( nBytes > 0 )
-    std::cout << "stamp = " << deltatime << std::endl;
+  unsigned int byte_count = message->size();
+  // for ( unsigned int i=0; i<byte_count; i++ )
+  //   std::cout << "Byte " << i << " = " << (int)message->at(i) << ", ";
+  // if ( byte_count > 0 )
+  //   std::cout << "stamp = " << deltatime << std::endl; # TODO: do we care about the deltatime?
+  int byte1 = 0, byte2 = 0, byte3 = 0;
+  if(byte_count > 0) byte1 = (int)message->at(0);
+  if(byte_count > 1) byte2 = (int)message->at(1);
+  if(byte_count > 2) byte3 = (int)message->at(2);
+  ((rtmidi_callback)userData)(byte1, byte2, byte3);
 }
 
-void midiin_set_callback(rtmidi_ptr p) { // TODO: actually set a callback
+void midiin_set_callback(rtmidi_ptr p, rtmidi_callback callback) {
   RtMidiIn *midiin = static_cast<RtMidiIn *>(p);
-  midiin->setCallback( &mycallback );
+  midiin->setCallback(midiin_callback_proxy, (void *)callback);
+}
+
+void midiin_cancel_callback(rtmidi_ptr p) {
+  RtMidiIn *midiin = static_cast<RtMidiIn *>(p);
+  midiin->cancelCallback();
 }
 
 

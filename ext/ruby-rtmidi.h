@@ -1,7 +1,7 @@
 extern "C"
 {
   typedef void* rtmidi_ptr;
-  typedef void (*rtmidi_callback)(double deltatime, void* message, void* userData);
+  typedef void (*rtmidi_callback)(int byte1, int byte2, int byte3);
 
   //================================================
   // INPUT
@@ -20,8 +20,10 @@ extern "C"
 
   void midiin_ignore_types(rtmidi_ptr p, bool sysex, bool timing, bool active_sensing);
 
-  void midiin_set_callback(rtmidi_ptr p); // TODO: actually set a callback
+  void midiin_set_callback(rtmidi_ptr p, rtmidi_callback callback);
 
+  void midiin_cancel_callback(rtmidi_ptr p);
+  
 
   //================================================
   // OUTPUT

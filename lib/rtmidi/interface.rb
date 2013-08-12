@@ -28,11 +28,14 @@ module RtMidi
     # void midiin_ignore_types(rtmidi_ptr p, bool sysex, bool timing, bool active_sensing);
     attach_function :midiin_ignore_types, [:pointer, :bool, :bool, :bool], :void
 
-    callback :rtmidi_callback, [:double, :pointer, :pointer], :void
-    # void midiin_set_callback(rtmidi_ptr p); // TODO: actually set a callback
-    attach_function :midiin_set_callback, [:pointer], :void
+    # void midiin_set_callback(rtmidi_ptr p, rtmidi_callback callback);
+    callback :rtmidi_callback, [:int, :int, :int], :void
+    attach_function :midiin_set_callback, [:pointer, :rtmidi_callback], :void
     
-  
+    # void midiin_cancel_callback(rtmidi_ptr p);
+    attach_function :midiin_cancel_callback, [:pointer], :void
+
+
     #####################################
     # OUTPUT
   
