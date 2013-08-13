@@ -13,12 +13,12 @@ Development Notes
 Built with [Ruby FFI (foreign function interface)](https://github.com/ffi/ffi),
 using [a technique for interfacing with C++ code via C](http://bicosyes.com/2012/11/create-rubyjruby-bindings-of-cc-with-ffi/).
 
-Currently only working on OS X and Windows under [MinGW](http://www.mingw.org/).
+Currently works on OS X, and Windows via [MinGW](http://www.mingw.org/).
 
 So far you can list MIDI I/O ports, send 3-byte messages to output ports, and listen for 3-byte message on input ports
 (in other words, no support for sysex messages yet). 
 
-To build, you need `gcc` on your PATH. Here's the suggested approach for setting up your system
+To build, you need `gcc` on your PATH. Here's the suggested approach for setting up gcc on your system
 
 OS X Setup
 ----------
@@ -31,12 +31,12 @@ See http://stackoverflow.com/questions/9329243/xcode-4-4-command-line-tools if y
 Windows Setup
 -------------
 
-* Install MinGW from http://sourceforge.net/projects/mingw/files/ (see "Looking for latest version? link near the top).
+* Install MinGW from http://sourceforge.net/projects/mingw/files/ (see "Looking for latest version?" link).
 * During installation, on the "Select Components" screen, install the following:
   * C Compiler
-  * C++ COmpiler
+  * C++ Compiler
   * MSYS Basic System
-  * MinGW Developer ToolKit (Not sure this is needed? I installed it during my testing)
+  * MinGW Developer ToolKit (Not sure this is needed, but I installed it during my testing)
 * Perform the build steps from the MinGW Shell that was just installed
 
 
