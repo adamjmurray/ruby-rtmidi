@@ -22,7 +22,8 @@ def run(cmd)
 end
 
 
-task :default => :make
+task :default =>  [:clean, :configure, :make]
+
 
 task :clean do
   cd RTMIDI_DIR
@@ -35,10 +36,13 @@ end
 
 task :configure do
   cd RTMIDI_DIR
-  # TODO: cannot seem to configure to run on Windows through Ruby,
-  # but it works on the msys command line...
-  # Maybe wrap in a shell script or batch script?
-  run "./configure"
+  if WINDOWS
+    # For some reason, configure cannot be shell exec'd on Windows/MinGW.
+    # This sh script wrapper somehow works around the problem.
+    run "sh configure.sh"
+  else
+    run "./configure"
+  end
 end
 
 task :make do
