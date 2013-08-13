@@ -25,3 +25,4 @@ for pitch in [60, 62, 64, 65, 67]
   sleep 0.5
   midiout.send_message(0x90, pitch, 0) # note off
 end
+sleep 0.5
