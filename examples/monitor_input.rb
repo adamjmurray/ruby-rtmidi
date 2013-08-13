@@ -1,19 +1,23 @@
 require "rtmidi"
 
 midiin = RtMidi::In.new
+
 puts "Available MIDI input ports"
 midiin.port_names.each_with_index{|name,index| puts "  ##{index+1}: #{name}" }
 
-port_index = nil
-until port_index
-  print "Select a port number: "
-  input = gets
-  if input =~ /\d+/
-    index = input.to_i - 1
-    port_index = index if index >= 0 and index < midiin.port_count
+def select_port(midiin)
+  print "Select a port number: "  
+  if (port_number = gets) =~ /^\d+$/
+    port_index = port_number.to_i - 1
+    if (0...midiin.port_count).include? port_index
+      return port_index 
+    end
   end
-  puts "Invalid port number" unless port_index
+  puts "Invalid port number"
+  nil
 end
+
+port_index = select_port(midiin) until port_index
 
 midiin.set_callback do |byte1, byte2, byte3|  
   puts "#{byte1} #{byte2} #{byte3}"
@@ -24,4 +28,4 @@ puts "Ctrl+C to exit"
 
 midiin.open_port(port_index)
 
-loop{ sleep 1 } # prevent Ruby from exiting immediately
+sleep # prevent Ruby from exiting immediately
