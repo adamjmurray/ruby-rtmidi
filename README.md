@@ -10,6 +10,7 @@ Features:
 * List MIDI I/O ports
 * Send 3-byte MIDI messages to output ports
 * Listen for 3-byte messages on input ports
+
 (in other words, no support for sysex messages yet).
 
 Supported Platforms:
