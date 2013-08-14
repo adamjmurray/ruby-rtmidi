@@ -1,7 +1,7 @@
 
 BASEDIR = File.expand_path(File.dirname __FILE__)
-RTMIDI_DIR = "#{BASEDIR}/rtmidi-2.0.1"
 EXT_DIR = "#{BASEDIR}/ext"
+RTMIDI_DIR = "#{EXT_DIR}/rtmidi-2.0.1"
 
 WINDOWS = (
   os = RbConfig::CONFIG['host_os'].downcase
