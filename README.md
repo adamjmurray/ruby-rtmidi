@@ -13,7 +13,7 @@ Features:
 
 In other words, it can handle [channel messages](http://www.cs.cf.ac.uk/Dave/Multimedia/node158.html)
 (notes, control change, pitch bend, pressure, program),
-but there is no support for[SySex](https://en.wikipedia.org/wiki/SysEx#System_Exclusive_messages) messages yet.
+but there is no support for [SySex](https://en.wikipedia.org/wiki/SysEx#System_Exclusive_messages) messages yet.
 
 
 Supported Platforms:
