@@ -1,10 +1,21 @@
 Ruby-RtMidi
 ===========
 
-A [Ruby](http://www.ruby-lang.org/) wrapper for [RtMidi](http://www.music.mcgill.ca/~gary/rtmidi/index.html),
+[Ruby](http://www.ruby-lang.org/) wrapper for [RtMidi](http://www.music.mcgill.ca/~gary/rtmidi/index.html),
 a cross-platform C++ library for realtime MIDI input and output.
 
-Once this is further along I intend to release this as a Ruby gem called 'rtmidi'.
+Soon to be released as a Ruby gem called 'rtmidi'.
+
+Features:
+* List MIDI I/O ports
+* Send 3-byte MIDI messages to output ports
+* Listen for 3-byte messages on input ports
+(in other words, no support for sysex messages yet).
+
+Supported Platforms:
+* OS X
+* Windows with [MinGW](http://www.mingw.org/)
+* Linux? It compiles on Linux with [JACK](http://jackaudio.org/) but is otherwise untested.
 
 
 Development Notes
@@ -12,11 +23,6 @@ Development Notes
 
 Built with [Ruby FFI (foreign function interface)](https://github.com/ffi/ffi),
 using [a technique for interfacing with C++ code via C](http://bicosyes.com/2012/11/create-rubyjruby-bindings-of-cc-with-ffi/).
-
-Currently works on OS X, and Windows via [MinGW](http://www.mingw.org/).
-
-So far you can list MIDI I/O ports, send 3-byte messages to output ports, and listen for 3-byte message on input ports
-(in other words, no support for sysex messages yet). 
 
 To build, you need `gcc` on your PATH. Here's the suggested approach for setting up gcc on your system
 
