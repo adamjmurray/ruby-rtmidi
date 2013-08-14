@@ -26,9 +26,7 @@ task :default =>  [:clean, :make]
 
 
 task :clean do
-  cd RTMIDI_DIR
-  run "make clean"
-  for file in Dir["#{EXT_DIR}/*.o","#{EXT_DIR}/*.so"]
+  for file in Dir["#{RTMIDI_DIR}/*.o", "#{EXT_DIR}/*.o","#{EXT_DIR}/*.so"]
     puts "Deleting #{file}"
     File.unlink(file)
   end
