@@ -22,7 +22,7 @@ def run(cmd)
 end
 
 
-task :default =>  [:clean, :configure, :make]
+task :default =>  [:clean, :make]
 
 
 task :clean do
@@ -32,47 +32,49 @@ task :clean do
     puts "Deleting #{file}"
     File.unlink(file)
   end
+  puts
 end
 
-task :configure do
-  cd RTMIDI_DIR
-  if WINDOWS
-    # For some reason, configure cannot be shell exec'd on Windows/MinGW.
-    # This sh script wrapper somehow works around the problem.
-    run "sh configure.sh"
-  else
-    run "./configure"
-  end
-end
+#task :configure do
+#  cd RTMIDI_DIR
+#  if WINDOWS
+#    # For some reason, configure cannot be shell exec'd on Windows/MinGW.
+#    # This sh script wrapper somehow works around the problem.
+#    run "sh configure.sh"
+#  else
+#    run "./configure"
+#  end
+#end
 
 task :make do
   cd RTMIDI_DIR
-  run "make"
+
+  # TODO: get this working on Linux
+  # See http://www.music.mcgill.ca/~gary/rtmidi/index.html#compiling
+  predefine = (
+  if WINDOWS
+    "__WINDOWS_MM__"
+  else
+    "__MACOSX_CORE__"
+  end
+  # TODO: linux should be "__UNIX_JACK__" or "__LINUX_ALSA__"
+  )
+  system_libraries = (
+  if WINDOWS
+    "-lwinmm"
+  else
+    "-framework CoreMIDI -framework CoreAudio -framework CoreFoundation"
+  end
+  # TODO: linux should be "-ljack" for Jack
+  # or "-lasound -lpthread" for ALSA
+  )
+
+  run "g++ -O3 -Wall -Iinclude -fPIC -D#{predefine} -c RtMidi.cpp -o RtMidi.o"
   puts
 
   cd EXT_DIR
   run "g++ -g -Wall -I#{RTMIDI_DIR} -fPIC -c ruby-rtmidi.cpp"
   puts
-
-  # TODO: get this working on Linux
-  # See http://www.music.mcgill.ca/~gary/rtmidi/index.html#compiling
-  predefine = (
-    if WINDOWS
-      "__WINDOWS_MM__"
-    else
-      "__MACOSX_CORE__"
-    end
-    # TODO: linux should be "__UNIX_JACK__" or "__LINUX_ALSA__"
-  )
-  system_libraries = (
-    if WINDOWS
-      "-lwinmm"
-    else
-      "-framework CoreMIDI -framework CoreAudio -framework CoreFoundation"
-    end
-    # TODO: linux should be "-ljack" for Jack
-    # or "-lasound -lpthread" for ALSA
-  )
 
   run "g++ -g -Wall -I#{RTMIDI_DIR} -I#{RTMIDI_DIR}/include -D#{predefine} -fPIC -shared -o ruby-rtmidi.so " +
     "ruby-rtmidi.o #{RTMIDI_DIR}/RtMidi.o #{system_libraries}"
