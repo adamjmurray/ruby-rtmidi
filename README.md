@@ -39,6 +39,12 @@ Windows Setup
   * MinGW Developer ToolKit (Not sure this is needed, but I installed it during my testing)
 * Perform the build steps from the MinGW Shell that was just installed
 
+Linux Setup (Ubuntu)
+--------------------
+
+    sudo apt-get install g++
+    sudo apt-get install jackd
+    sudo apt-get install libjack-dev
 
 Building
 --------
