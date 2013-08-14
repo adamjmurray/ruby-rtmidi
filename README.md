@@ -11,7 +11,10 @@ Features:
 * Send 3-byte MIDI messages to output ports
 * Listen for 3-byte messages on input ports
 
-(in other words, no support for sysex messages yet).
+In other words, it can handle [channel messages](http://www.cs.cf.ac.uk/Dave/Multimedia/node158.html)
+(notes, control change, pitch bend, pressure, program),
+but there is no support for[SySex](https://en.wikipedia.org/wiki/SysEx#System_Exclusive_messages) messages yet.
+
 
 Supported Platforms:
 * OS X
