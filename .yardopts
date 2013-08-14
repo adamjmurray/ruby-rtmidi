@@ -1,0 +1,7 @@
+--readme README.md
+--title 'Ruby-RtMidi'
+--charset utf-8
+--no-private
+lib/**/*.rb
+- examples/**/*.rb
+- LICENSE.txt

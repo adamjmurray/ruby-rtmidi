@@ -1,4 +1,4 @@
-ruby-rtmidi
+Ruby-RtMidi
 ===========
 
 A [Ruby](http://www.ruby-lang.org/) wrapper for [RtMidi](http://www.music.mcgill.ca/~gary/rtmidi/index.html),
@@ -26,17 +26,17 @@ OS X Setup
 * Install XCode via the Apple AppStore.
 * Open Preferences and install the "Command Line Tools" from the Downloads tab.
 
-See http://stackoverflow.com/questions/9329243/xcode-4-4-command-line-tools if you need help.
+See [this stackoverflow discussion](http://stackoverflow.com/questions/9329243/xcode-4-4-command-line-tools) for help.
 
 Windows Setup
 -------------
 
-* Install MinGW from http://sourceforge.net/projects/mingw/files/ (see "Looking for latest version?" link).
+* [Install MinGW](http://sourceforge.net/projects/mingw/files/)  (see "Looking for the latest version?" link)
 * During installation, on the "Select Components" screen, install the following:
   * C Compiler
   * C++ Compiler
   * MSYS Basic System
-  * MinGW Developer ToolKit (Not sure this is needed, but I installed it during my testing)
+  * MinGW Developer ToolKit
 * Perform the build steps from the MinGW Shell that was just installed
 
 Linux Setup (Ubuntu)

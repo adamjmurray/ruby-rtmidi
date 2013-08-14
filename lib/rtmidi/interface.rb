@@ -1,5 +1,6 @@
 module RtMidi
 
+  # The interface to RtMidi C++ code
   module Interface
     extend FFI::Library
     ffi_lib "ext/ruby-rtmidi.so" # TODO: what should this path look like for a gem?

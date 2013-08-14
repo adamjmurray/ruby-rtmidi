@@ -1,5 +1,6 @@
 module RtMidi
 
+  # Ruby representation of an RtMidiOut C++ object
   class Out
 
     def initialize

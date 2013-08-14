@@ -1,5 +1,6 @@
 module RtMidi
 
+  # Ruby representation of an RtMidiIn C++ object
   class In
 
     def initialize
@@ -34,6 +35,7 @@ module RtMidi
     # TODO: enable sysex listening by hooking up to midiin_ignore_types
     # but that will require a more flexible callback interface
 
+    #
     def set_callback &callback      
       Interface::midiin_set_callback(@midiin, callback)
     end
