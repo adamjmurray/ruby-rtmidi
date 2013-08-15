@@ -1,6 +1,8 @@
 module RtMidi
 
   # The interface to RtMidi C++ code
+  # @see RtMidi::In
+  # @see RtMidi::Out
   module Interface
     extend FFI::Library
     ffi_lib "ext/ruby-rtmidi.so"
