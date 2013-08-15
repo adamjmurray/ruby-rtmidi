@@ -3,3 +3,5 @@ Gemfile.lock
 *.so
 doc
 .yardoc
+*.log
+*.gem
