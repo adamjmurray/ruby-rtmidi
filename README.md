@@ -4,9 +4,9 @@ Ruby-RtMidi
 [Ruby](http://www.ruby-lang.org/) wrapper for [RtMidi](http://www.music.mcgill.ca/~gary/rtmidi/index.html),
 a cross-platform C++ library for realtime MIDI input and output.
 
-Soon to be released as a Ruby gem called 'rtmidi'.
-
+<br>
 Features:
+
 * List MIDI I/O ports
 * Send 3-byte MIDI messages to output ports
 * Listen for 3-byte messages on input ports
@@ -15,20 +15,19 @@ In other words, it can handle [channel messages](http://www.cs.cf.ac.uk/Dave/Mul
 (notes, control change, pitch bend, pressure, program),
 but there is no support for [SySex](https://en.wikipedia.org/wiki/SysEx#System_Exclusive_messages) messages yet.
 
-
+<br>
 Supported Platforms:
+
 * OS X
 * Windows with [MinGW](http://www.mingw.org/)
 * Linux? It compiles on Linux with [JACK](http://jackaudio.org/) but is otherwise untested.
 
+<br>
 
-Development Notes
-=================
+Requirements
+============
 
-Built with [Ruby FFI (foreign function interface)](https://github.com/ffi/ffi),
-using [a technique for interfacing with C++ code via C](http://bicosyes.com/2012/11/create-rubyjruby-bindings-of-cc-with-ffi/).
-
-To build, you need `gcc` on your PATH. Here's the suggested approach for setting up gcc on your system
+To install, you need `gcc` and `g++` on your PATH. Here's the recommended approach for your system:
 
 OS X Setup
 ----------
@@ -47,7 +46,7 @@ Windows Setup
   * C++ Compiler
   * MSYS Basic System
   * MinGW Developer ToolKit
-* Perform the build steps from the MinGW Shell that was just installed
+* Use the the MinGW Shell (MSYS) to install
 
 Linux Setup (Ubuntu)
 --------------------
@@ -56,13 +55,22 @@ Linux Setup (Ubuntu)
     sudo apt-get install jackd
     sudo apt-get install libjack-dev
 
-Building
---------
+<br>
 
-Once you are setup and you can run the `gcc` command, go to the root of this repository and do:
+Installation
+============
 
-    bundle install
-    bundle exec rake
-    ruby -Ilib examples/list_ports.rb
-    ruby -Ilib examples/play_notes.rb
-    ruby -Ilib examples/monitor_input.rb
+Assuming you have Ruby installed, and are ready to compile C++ code with `gcc`, this part is easy:
+
+    gem install rtmidi
+
+<br>
+
+Usage
+=====
+
+See the following examples:
+
+* [List MIDI devices](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/list_ports.rb)
+* [MIDI output](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/play_notes.rb)
+* [MIDI input](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/monitor_input.rb)
