@@ -19,7 +19,7 @@ but there is no support for [SySex](https://en.wikipedia.org/wiki/SysEx#System_E
 Supported Platforms:
 
 * OS X
-* Windows with [MinGW](http://www.mingw.org/)
+* Windows
 * Linux? It compiles on Linux with [JACK](http://jackaudio.org/) but is otherwise untested.
 
 <br>
@@ -28,6 +28,7 @@ Requirements
 ============
 
 To install, you need `gcc` and `g++` on your PATH.
+
 On Windows, you can use Visual Studio's `cl.exe` compiler instead.
 
 Here's the recommended approach for your system:
@@ -43,11 +44,11 @@ See [this stackoverflow discussion](http://stackoverflow.com/questions/9329243/x
 Windows Setup
 -------------
 
-### with Visual Studio
+### with [Visual Studio](http://www.microsoft.com/visualstudio) (cl.exe)
 * Install [Visual Studio](http://www.microsoft.com/visualstudio) (Tested with Visual C++ 2010 Express. Any recent version with a C++ compiler should work.)
 * Use the "Visual Studio Command Prompt" to install
 
-### with MinGW
+### with [MinGW](http://www.mingw.org/) (gcc/g++)
 * [Install MinGW](http://sourceforge.net/projects/mingw/files/latest/download)
 * During installation, on the "Select Components" screen, install the following:
   * C Compiler
