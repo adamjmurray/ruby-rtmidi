@@ -27,20 +27,28 @@ Supported Platforms:
 Requirements
 ============
 
-To install, you need `gcc` and `g++` on your PATH. Here's the recommended approach for your system:
+To install, you need `gcc` and `g++` on your PATH.
+On Windows, you can use Visual Studio's `cl.exe` compiler instead.
+
+Here's the recommended approach for your system:
 
 OS X Setup
 ----------
 
 * Install XCode via the Apple AppStore.
-* Open Preferences and install the "Command Line Tools" from the Downloads tab.
+* Open XCode's Preferences and install "Command Line Tools" in the Downloads tab.
 
 See [this stackoverflow discussion](http://stackoverflow.com/questions/9329243/xcode-4-4-command-line-tools) for help.
 
 Windows Setup
 -------------
 
-* [Install MinGW](http://sourceforge.net/projects/mingw/files/)  (see "Looking for the latest version?" link)
+### with Visual Studio
+* Install [Visual Studio](http://www.microsoft.com/visualstudio) (Tested with Visual C++ 2010 Express. Any recent version with a C++ compiler should work.)
+* Use the "Visual Studio Command Prompt" to install
+
+### with MinGW
+* [Install MinGW](http://sourceforge.net/projects/mingw/files/latest/download)
 * During installation, on the "Select Components" screen, install the following:
   * C Compiler
   * C++ Compiler
