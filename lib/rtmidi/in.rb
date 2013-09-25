@@ -28,7 +28,7 @@ module RtMidi
     # @see #port_name
     # @see #open_port
     def port_names
-      @port_namess ||= (
+      @port_names ||= (
         names = []
         port_count.times{|i| names << Interface::midiin_port_name(@midiin, i) }
         names
