@@ -2,6 +2,7 @@ Gemfile.lock
 *.o
 *.obj
 *.exp
+*.lib
 *.dll
 *.so
 doc
