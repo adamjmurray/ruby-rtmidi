@@ -26,9 +26,9 @@ int midiin_port_count(rtmidi_ptr p) {
 const char* midiin_port_name(rtmidi_ptr p, int port_index) {
   RtMidiIn *midiin = static_cast<RtMidiIn *>(p);
   std::string name = midiin->getPortName(port_index);
-  // std::string will be freed from memory at end of scope, so copy into a c string before returning
-  // NOTE: this creates a small memory leak but shouldn't be a problem in practice?
-  char * cstr = new char [name.length()+1];
+  // std::string will be freed from memory at end of scope, so copy into a c string before returning.
+  // returning name directly caused noticeable problems when compiled with cl.exe
+  char* cstr = new char [name.length()+1];
   std::strcpy(cstr, name.c_str());
   return cstr;
 }
@@ -92,9 +92,9 @@ int midiout_port_count(rtmidi_ptr p) {
 const char* midiout_port_name(rtmidi_ptr p, int port_index) {
   RtMidiOut *midiout = static_cast<RtMidiOut *>(p);
   std::string name = midiout->getPortName(port_index);
-  // std::string will be freed from memory at end of scope, so copy into a c string before returning
-  // NOTE: this creates a small memory leak but shouldn't be a problem in practice?
-  char * cstr = new char [name.length()+1];
+  // std::string will be freed from memory at end of scope, so copy into a c string before returning.
+  // returning name directly caused noticeable problems when compiled with cl.exe
+  char* cstr = new char [name.length()+1];
   std::strcpy(cstr, name.c_str());
   return cstr;
 }
