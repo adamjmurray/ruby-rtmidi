@@ -88,5 +88,6 @@ Documentation
 Changelog
 =========
 
-* 0.2.1 - Added Linux support (thanks to [@quark-zju](https://github.com/quark-zju))
+* 0.2.2 - Compilable with Visual Studio on Windows
+* 0.2.1 - Linux support (thanks to [@quark-zju](https://github.com/quark-zju))
 * 0.2 - First stable release

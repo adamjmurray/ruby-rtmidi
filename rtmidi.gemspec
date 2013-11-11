@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name        = 'rtmidi'
-  gem.version     = '0.2.1'
+  gem.version     = '0.2.2'
 
   gem.summary     = 'Ruby-RtMidi'
   gem.description = 'Ruby wrapper for RtMidi, a cross-platform C++ library for realtime MIDI input and output.'
