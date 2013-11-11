@@ -4,7 +4,6 @@ Ruby-RtMidi
 [Ruby](http://www.ruby-lang.org/) wrapper for [RtMidi](http://www.music.mcgill.ca/~gary/rtmidi/index.html),
 a cross-platform C++ library for realtime MIDI input and output.
 
-<br>
 Features:
 
 * List MIDI I/O ports
@@ -15,14 +14,12 @@ In other words, it can handle [channel messages](http://www.cs.cf.ac.uk/Dave/Mul
 (notes, control change, pitch bend, pressure, program),
 but there is no support for [SySex](https://en.wikipedia.org/wiki/SysEx#System_Exclusive_messages) messages yet.
 
-<br>
 Supported Platforms:
 
 * OS X
 * Windows with [MinGW](http://www.mingw.org/)
 * Linux with [JACK](http://jackaudio.org/) or [ALSA](http://www.alsa-project.org)
 
-<br>
 
 Requirements
 ============
@@ -55,7 +52,6 @@ Linux Setup (Ubuntu)
     sudo apt-get install jackd
     sudo apt-get install libjack-dev
 
-<br>
 
 Installation
 ============
@@ -64,7 +60,6 @@ Assuming you have Ruby installed, and are ready to compile C++ code with `gcc`, 
 
     gem install rtmidi
 
-<br>
 
 Usage
 =====
@@ -75,16 +70,14 @@ See the following examples:
 * [MIDI output](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/play_notes.rb)
 * [MIDI input](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/monitor_input.rb)
 
-<br>
 
 Documentation
 =============
 [http://rdoc.info/github/adamjmurray/ruby-rtmidi/frames](http://rdoc.info/github/adamjmurray/ruby-rtmidi/frames)
 
-<br>
 
 Changelog
 =========
 
-* 0.2.1 - Added Linux support (thanks to @quark-zju)
+* 0.2.1 - Added Linux support (thanks to [@quark-zju](https://github.com/quark-zju))
 * 0.2 - First stable release
