@@ -5,7 +5,10 @@ module RtMidi
   # @see RtMidi::Out
   module Interface
     extend FFI::Library
-    ffi_lib File.expand_path("../../ext/ruby-rtmidi.so", File.dirname(__FILE__))
+    ffi_lib [
+      File.expand_path("../../ext/ruby-rtmidi.so", File.dirname(__FILE__)),
+      File.expand_path("../../ext/ruby-rtmidi.dll", File.dirname(__FILE__))
+    ]
   
     #####################################
     # INPUT
