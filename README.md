@@ -20,7 +20,7 @@ Supported Platforms:
 
 * OS X
 * Windows with [MinGW](http://www.mingw.org/)
-* Linux? It compiles on Linux with [JACK](http://jackaudio.org/) but is otherwise untested.
+* Linux with [JACK](http://jackaudio.org/) or [ALSA](http://www.alsa-project.org)
 
 <br>
 
@@ -80,3 +80,11 @@ See the following examples:
 Documentation
 =============
 [http://rdoc.info/github/adamjmurray/ruby-rtmidi/frames](http://rdoc.info/github/adamjmurray/ruby-rtmidi/frames)
+
+<br>
+
+Changelog
+=========
+
+* 0.2.1 - Added Linux support (thanks to @quark-zju)
+* 0.2 - First stable release
