@@ -3,7 +3,7 @@ require "rtmidi"
 midiin = RtMidi::In.new
 
 puts "Available MIDI input ports"
-midiin.port_names.each_with_index{|name,index| puts "  ##{index+1}: #{name}" }
+midiin.port_names.each_with_index{|name,index| puts "  #{index+1}: #{name}" }
 
 def select_port(midiin)
   print "Select a port number: "  
