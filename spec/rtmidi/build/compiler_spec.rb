@@ -169,4 +169,79 @@ describe RtMidi::Build::Compiler do
     end
   end
 
+
+  describe '#compile_ruby_rtmidi_wrapper' do
+
+    it 'changes the current director to the ext_dir' do
+      for compiler in compilers
+        compiler.compile_ruby_rtmidi_wrapper
+        compiler.current_dir.should == ext_dir
+      end
+    end
+
+    it 'runs a single command' do
+      for compiler in compilers
+        compiler.compile_ruby_rtmidi_wrapper
+        compiler.commands.length.should == 1
+      end
+    end
+
+    context 'with gcc' do
+      it 'runs g++' do
+        for compiler in gcc_compilers
+          compiler.compile_ruby_rtmidi_wrapper
+          compiler.command[0..2].should == 'g++'
+        end
+      end
+
+      it 'includes the rtmidi_dir' do
+        for compiler in gcc_compilers
+          compiler.compile_ruby_rtmidi_wrapper
+          compiler.command.should =~ /-I#{rtmidi_dir}/
+        end
+      end
+
+      it 'compiles ruby-rtmidi.cpp' do
+        for compiler in gcc_compilers
+          compiler.compile_ruby_rtmidi_wrapper
+          compiler.command.should =~ /-c\s+ruby-rtmidi.cpp/
+        end
+      end
+
+      it 'outputs ruby-rtmidi.o' do
+        for compiler in gcc_compilers
+          compiler.compile_ruby_rtmidi_wrapper
+          compiler.command.should =~ /-o\s+ruby-rtmidi.o/
+        end
+      end
+    end
+
+    context 'with cl.exe' do
+      it 'runs cl' do
+        cl_compiler.compile_ruby_rtmidi_wrapper
+        cl_compiler.command[0..1].should == 'cl'
+      end
+
+      it 'includes the rtmidi_dir' do
+        cl_compiler.compile_ruby_rtmidi_wrapper
+        cl_compiler.command.should =~ /\/I#{rtmidi_dir}/
+      end
+
+      it 'compiles ruby-rtmidi.cpp' do
+        cl_compiler.compile_ruby_rtmidi_wrapper
+        cl_compiler.command.should =~ /\/c\s+ruby-rtmidi.cpp/
+      end
+
+      it 'outputs ruby-rtmidi.obj' do
+        cl_compiler.compile_ruby_rtmidi_wrapper
+        cl_compiler.command.should =~ /\/Foruby-rtmidi.obj/
+      end
+
+      it 'predefines __RUBY_RTMIDI_DLL__' do
+        cl_compiler.compile_ruby_rtmidi_wrapper
+        cl_compiler.command.should =~ /\/D__RUBY_RTMIDI_DLL__/
+      end
+    end
+  end
+
 end
