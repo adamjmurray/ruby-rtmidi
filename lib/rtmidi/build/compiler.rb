@@ -5,27 +5,12 @@ module RtMidi
     class Compiler
       include RtMidi::Build::System
 
-      attr_reader :compiler_type, :predefines, :system_libs
-
       def initialize(ext_dir, rtdmidi_dir, options={})
         @ext_dir = ext_dir
         @rtmidi_dir = rtdmidi_dir
-
         @options = options
-
-        determine_compiler_type
-        determine_predefines_and_system_libs
+        configure
       end
-
-
-      def gcc?
-        @compiler_type == :gcc
-      end
-
-      def verbose?
-        @verbose ||= @options.fetch(:verbose, false)
-      end
-
 
       def compile
         compile_rtmidi
@@ -38,9 +23,9 @@ module RtMidi
         puts "\nCompiling RtMidi C++ library" if verbose?
         cd @rtmidi_dir
         if gcc?
-          run "g++ -O3 -Wall -Iinclude -fPIC -D#{@predefines} -o RtMidi.o -c RtMidi.cpp"
+          run "g++ -O3 -Wall -Iinclude -fPIC #{@predefines} -o RtMidi.o -c RtMidi.cpp"
         else
-          run "cl /O2 /Iinclude /D#{@predefines} /EHsc /FoRtMidi.obj /c RtMidi.cpp"
+          run "cl /O2 /Iinclude #{@predefines} /EHsc /FoRtMidi.obj /c RtMidi.cpp"
         end
       end
 
@@ -58,10 +43,10 @@ module RtMidi
         puts "\nCreating the RtMidi + wrapper shared library" if verbose?
         cd @ext_dir
         if gcc?
-          run "g++ -g -Wall -I#{@rtmidi_dir} -I#{@rtmidi_dir}/include -D#{@predefines} -fPIC -shared -o ruby-rtmidi.so " +
+          run "g++ -g -Wall -I#{@rtmidi_dir} -I#{@rtmidi_dir}/include #{@predefines} -fPIC -shared -o ruby-rtmidi.so " +
                 "ruby-rtmidi.o #{@rtmidi_dir}/RtMidi.o #{@system_libs}"
         else
-          run "cl /I#{@rtmidi_dir} /I#{@rtmidi_dir}/include /D#{@predefines} /LD ruby-rtmidi.obj #{@rtmidi_dir}/RtMidi.obj winmm.lib"
+          run "cl /I#{@rtmidi_dir} /I#{@rtmidi_dir}/include #{@predefines} /LD ruby-rtmidi.obj #{@rtmidi_dir}/RtMidi.obj #{@system_libs}"
         end
       end
 
@@ -69,42 +54,73 @@ module RtMidi
       ############################
       private
 
-      def determine_compiler_type
-        if windows? and can_run('cl.exe')
-          @compiler_type = :cl
-        elsif can_run('gcc') and can_run('g++')
-          @compiler_type = :gcc
-        else
-          abort "Cannot find gcc/g++#{' or cl.exe' if windows?} compiler"
+      def verbose?
+        @verbose ||= @options.fetch(:verbose, false)
+      end
+
+      def gcc?
+        @compiler == :gcc
+      end
+
+      def cl?
+        @compiler == :cl
+      end
+
+      def jack?
+        @api == :jack
+      end
+
+      def alsa?
+        @api == :alsa
+      end
+
+      def configure
+        configure_compiler
+        configure_midi_api
+        configure_predefines
+        configure_system_libs
+      end
+
+      def configure_compiler
+        @compiler = case
+          when windows? && can_run('cl.exe') then :cl
+          when can_run('gcc') && can_run('g++') then :gcc
+          else abort "Cannot find gcc/g++#{' or cl.exe' if windows?} compiler"
         end
       end
 
-
-      def determine_predefines_and_system_libs
-        case platform
-          when :osx
-            @predefines = '__MACOSX_CORE__'
-            @system_libs = '-framework CoreMIDI -framework CoreAudio -framework CoreFoundation'
-
-          when :windows
-            @predefines = '__WINDOWS_MM__'
-            @system_libs = '-lwinmm'
-
-          when :linux then
-            defines, libs = '', ''
-            {:alsa => '__LINUX_ALSA__', :jack => '__UNIX_JACK__'}.select do |pkg, _|
-              linux_package_exists(pkg)
-            end.each do |pkg, macro|
-              defines << "#{macro} "
-              libs << linux_library(pkg)
+      def configure_midi_api
+        @api = case
+          when osx? then :coremidi
+          when windows? then :winmm
+          when linux?
+            case
+              when linux_package_exists(:jack) then :jack
+              when linux_package_exists(:alsa) then :alsa
+              else abort 'Neither JACK or ALSA detected using pkg-config. Please install one of them first.'
             end
-            if defines.empty?
-              abort 'Neither JACK or ALSA detected using pkg-config. Please install one of them first.'
-            end
-            @predefines = defines
-            @system_libs = libs
-
           else abort "Unsupported platform #{platform}"
+        end
+      end
+
+      def configure_predefines
+        @predefines = case
+          when osx? then '-D__MACOSX_CORE__'
+          when windows? && gcc? then '-D__WINDOWS_MM__'
+          when windows? && cl? then '/D__WINDOWS_MM__'
+          when linux? && jack? then '-D__UNIX_JACK__'
+          when linux? && alsa? then '-D__LINUX_ALSA__'
+          else abort "Could not set predefines"
+        end
+      end
+
+      def configure_system_libs
+        @system_libs = case
+          when osx? then '-framework CoreMIDI -framework CoreAudio -framework CoreFoundation'
+          when windows? && gcc? then '-lwinmm'
+          when windows? && cl? then 'winmm.lib'
+          when linux? then linux_library(@api)
+          else abort "Could not set system_libs"
         end
       end
     end
