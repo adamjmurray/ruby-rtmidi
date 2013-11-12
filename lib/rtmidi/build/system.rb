@@ -2,10 +2,25 @@ module RtMidi
   module Build
     module System
 
-      HOST_OS = RbConfig::CONFIG['host_os'].downcase
-      OS_X = (HOST_OS =~ /darwin/)
-      WINDOWS = ((HOST_OS =~ /win/ and HOST_OS !~ /darwin/) or HOST_OS =~ /mingw/)
-      LINUX = (HOST_OS =~ /linux/)
+      def platform
+        case RbConfig::CONFIG['host_os'].downcase
+          when /darwin/ then :osx
+          when ((HOST_OS =~ /win/ and HOST_OS !~ /darwin/) or HOST_OS =~ /mingw/) then :windows
+          when /linux/ then :linux
+        end
+      end
+
+      def osx?
+        platform == :osx
+      end
+
+      def windows?
+        platform == :windows
+      end
+
+      def linux?
+        platform == :linux
+      end
 
       def cd(dir)
         puts "cd #{dir}"

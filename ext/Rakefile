@@ -1,11 +1,11 @@
-EXT_DIR = File.expand_path(File.dirname __FILE__)
-RTMIDI_DIR = "#{EXT_DIR}/rtmidi-2.0.1"
-
-desc 'run the make task'
+desc 'Run the make task'
 task :default => :make
 
-desc 'build the RtMidi C++ library with Ruby FFI wrapper'
+desc 'Compile the RtMidi C++ library with Ruby FFI wrapper'
 task :make do
   require_relative '../lib/rtmidi/build/compiler'
-  RtMidi::Build::Compiler.compile
+  ext_dir = File.expand_path(File.dirname __FILE__)
+  rtmidi_dir = "#{ext_dir}/rtmidi-2.0.1"
+  compiler = RtMidi::Build::Compiler.new(ext_dir, rtmidi_dir)
+  compiler.compile
 end

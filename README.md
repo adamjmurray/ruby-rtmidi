@@ -54,6 +54,8 @@ Windows Setup
   * MinGW Developer ToolKit
 * Use the the MinGW Shell (MSYS) to install
 
+Note: when installing under MinGW, this library may not work outside of MinGW. If that is a problem for you, use Visual Studio to install.
+
 Linux Setup (Ubuntu)
 --------------------
 

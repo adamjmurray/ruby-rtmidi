@@ -14,6 +14,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'ffi', '~> 1.9'
 
   gem.add_development_dependency 'rake', '~> 10.1'
+  gem.add_development_dependency 'rspec', '~> 2.14'
   gem.add_development_dependency 'yard', '~> 0.8'
 
   gem.requirements = ['gcc','g++']
