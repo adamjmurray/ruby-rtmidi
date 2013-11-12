@@ -37,7 +37,11 @@ module RtMidi
     # void midiin_set_callback(rtmidi_ptr p, rtmidi_callback callback);
     callback :rtmidi_callback, [:int, :int, :int], :void
     attach_function :midiin_set_callback, [:pointer, :rtmidi_callback], :void
-    
+
+    # void midiin_set_varargs_callback(rtmidi_ptr p, rtmidi_varargs_callback callback);
+    callback :rtmidi_varargs_callback, [:pointer, :int], :void
+    attach_function :midiin_set_varargs_callback, [:pointer, :rtmidi_varargs_callback], :void
+
     # void midiin_cancel_callback(rtmidi_ptr p);
     attach_function :midiin_cancel_callback, [:pointer], :void
 

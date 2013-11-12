@@ -67,6 +67,21 @@ void midiin_set_callback(rtmidi_ptr p, rtmidi_callback callback) {
   midiin->setCallback(midiin_callback_proxy, (void *)callback);
 }
 
+void midiin_varargs_callback_proxy( double deltatime, std::vector< unsigned char > *message, void *userData )
+{
+  unsigned int byte_count = message->size();
+  // for ( unsigned int i=0; i<byte_count; i++ )
+  //   std::cout << "Byte " << i << " = " << (int)message->at(i) << ", ";
+  // if ( byte_count > 0 )
+  //   std::cout << "stamp = " << deltatime << std::endl; # TODO: do we care about the deltatime?
+  ((rtmidi_varargs_callback)userData)(&(*message)[0], byte_count);
+}
+
+void midiin_set_varargs_callback(rtmidi_ptr p, rtmidi_varargs_callback callback) {
+  RtMidiIn *midiin = static_cast<RtMidiIn *>(p);
+  midiin->setCallback(midiin_varargs_callback_proxy, (void *)callback);
+}
+
 void midiin_cancel_callback(rtmidi_ptr p) {
   RtMidiIn *midiin = static_cast<RtMidiIn *>(p);
   midiin->cancelCallback();

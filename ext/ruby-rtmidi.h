@@ -8,6 +8,7 @@ extern "C"
 {
   typedef void* rtmidi_ptr;
   typedef void (*rtmidi_callback)(int byte1, int byte2, int byte3);
+  typedef void (*rtmidi_varargs_callback)(unsigned char* bytes, int byte_count);
 
   //================================================
   // INPUT
@@ -27,6 +28,8 @@ extern "C"
   DLL_EXPORT void midiin_ignore_types(rtmidi_ptr p, bool sysex, bool timing, bool active_sensing);
 
   DLL_EXPORT void midiin_set_callback(rtmidi_ptr p, rtmidi_callback callback);
+
+  DLL_EXPORT void midiin_set_varargs_callback(rtmidi_ptr p, rtmidi_varargs_callback callback);
 
   DLL_EXPORT void midiin_cancel_callback(rtmidi_ptr p);
   
