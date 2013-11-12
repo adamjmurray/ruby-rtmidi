@@ -61,8 +61,8 @@ describe RtMidi::Build::Compiler do
   let(:linux_alsa_compiler)  { compiler_for :linux, :gcc, :alsa }
 
   let(:gcc_compilers) { [osx_compiler, windows_gcc_compiler, linux_jack_compiler, linux_alsa_compiler] }
-  let(:cl_compiler) { windows_cl_compiler }
-  let(:compilers) { [osx_compiler, windows_gcc_compiler, windows_cl_compiler, linux_jack_compiler, linux_alsa_compiler] }
+  let(:cl_compiler)   { windows_cl_compiler }
+  let(:compilers)     { [osx_compiler, windows_gcc_compiler, windows_cl_compiler, linux_jack_compiler, linux_alsa_compiler] }
 
 
   describe '.new' do
