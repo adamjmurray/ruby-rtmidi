@@ -14,7 +14,7 @@ module RtMidi::Build::System
 
   def can_run(cmd)
     # simulate the compiler executables being on the path given a @context set in the tests below
-    case @options[:context]
+    case @options[:compiler]
       when :gcc then cmd == 'gcc' or cmd == 'g++'
       when :cl then cmd == 'cl.exe'
       when false
@@ -26,11 +26,11 @@ module RtMidi::Build::System
   end
 
   def linux_package_exists(pkg)
-    true
+    pkg == @options[:library]
   end
 
   def linux_library(pkg)
-    'linux_lib'
+    "lib#{@options[:library]}"
   end
 
   attr_reader :current_dir, :commands
@@ -47,8 +47,8 @@ require 'rtmidi/build/compiler'
 
 describe RtMidi::Build::Compiler do
 
-  def compiler_for(platform, context)
-    RtMidi::Build::Compiler.new(ext_dir, rtmidi_dir, platform: platform, context: context)
+  def compiler_for(platform, compiler, library=nil)
+    RtMidi::Build::Compiler.new(ext_dir, rtmidi_dir, platform: platform, compiler: compiler, library: library)
   end
 
   let(:ext_dir) { '/ext_dir' }
@@ -57,11 +57,12 @@ describe RtMidi::Build::Compiler do
   let(:osx_compiler)         { compiler_for :osx, :gcc }
   let(:windows_gcc_compiler) { compiler_for :windows, :gcc }
   let(:windows_cl_compiler)  { compiler_for :windows, :cl }
-  let(:linux_compiler)       { compiler_for :linux, :gcc }
+  let(:linux_jack_compiler)  { compiler_for :linux, :gcc, :jack }
+  let(:linux_alsa_compiler)  { compiler_for :linux, :gcc, :alsa }
 
-  let(:gcc_compilers) { [osx_compiler, windows_gcc_compiler, linux_compiler] }
+  let(:gcc_compilers) { [osx_compiler, windows_gcc_compiler, linux_jack_compiler, linux_alsa_compiler] }
   let(:cl_compiler) { windows_cl_compiler }
-  let(:compilers) { [osx_compiler, windows_gcc_compiler, windows_cl_compiler, linux_compiler] }
+  let(:compilers) { [osx_compiler, windows_gcc_compiler, windows_cl_compiler, linux_jack_compiler, linux_alsa_compiler] }
 
 
   describe '#compile_rtmidi' do
@@ -120,6 +121,22 @@ describe RtMidi::Build::Compiler do
         it 'predefines __WINDOWS_MM__' do
           windows_gcc_compiler.compile_rtmidi
           windows_gcc_compiler.command.should =~ /-D__WINDOWS_MM__/
+        end
+      end
+
+      context 'on linux' do
+        context 'with ALSA' do
+          it 'predefines __LINUX_ALSA__' do
+            linux_alsa_compiler.compile_rtmidi
+            linux_alsa_compiler.command.should =~ /-D__LINUX_ALSA__/
+          end
+        end
+
+        context 'with JACK' do
+          it 'predefines __UNIX_JACK__' do
+            linux_jack_compiler.compile_rtmidi
+            linux_jack_compiler.command.should =~ /-D__UNIX_JACK__/
+          end
         end
       end
     end
