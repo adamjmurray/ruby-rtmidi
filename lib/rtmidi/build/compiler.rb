@@ -75,7 +75,7 @@ module RtMidi
         elsif can_run('gcc') and can_run('g++')
           @compiler_type = :gcc
         else
-          abort "Cannot find gcc/g++#{'or cl.exe ' if windows?} compiler"
+          abort "Cannot find gcc/g++#{' or cl.exe' if windows?} compiler"
         end
       end
 
