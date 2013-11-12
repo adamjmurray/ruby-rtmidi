@@ -1,4 +1,4 @@
-require 'rtmidi'
+require 'spec_helper'
 require 'rtmidi/build/system'
 
 # Stub out the system code and record what was done

@@ -1,12 +1,7 @@
 language: ruby
-script: "bundle exec rake make test"
+script: "bundle exec rake test"
 env:
   - CI=true
-before_install:
-  - sudo apt-get install jackd
-  - sudo apt-get install libjack-dev
-compiler:
-  - gcc
 notifications:
   recipients:
     - adam@compusition.com
