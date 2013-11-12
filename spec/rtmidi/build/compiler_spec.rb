@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rtmidi'
 require 'rtmidi/build/system'
 
 # Stub out the system code and record what was done
@@ -364,6 +364,24 @@ describe RtMidi::Build::Compiler do
       it 'predefines __WINDOWS_MM__' do
         cl_compiler.create_shared_library
         cl_compiler.command.should =~ /\/D__WINDOWS_MM__/
+      end
+    end
+  end
+
+
+  describe '#compile' do
+    it 'runs #compile_rtmidi, #compile_ruby_rtmidi_wrapper, and #create_shared_library' do
+      for compiler in compilers
+        compiler.compile
+        commands = compiler.commands.dup
+
+        compiler.commands.clear
+        compiler.compile_rtmidi
+        compiler.compile_ruby_rtmidi_wrapper
+        compiler.create_shared_library
+
+        commands.length.should == 3
+        commands.should == compiler.commands
       end
     end
   end
