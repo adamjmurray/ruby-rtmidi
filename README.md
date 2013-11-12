@@ -1,6 +1,8 @@
 Ruby-RtMidi
 ===========
 
+[![Build Status](https://travis-ci.org/adamjmurray/ruby-rtmidi.png)](http://travis-ci.org/adamjmurray/ruby-rtmidi)
+
 [Ruby](http://www.ruby-lang.org/) wrapper for [RtMidi](http://www.music.mcgill.ca/~gary/rtmidi/index.html),
 a cross-platform C++ library for realtime MIDI input and output.
 
@@ -84,7 +86,20 @@ See the following examples:
 
 Documentation
 =============
+
 [http://rdoc.info/github/adamjmurray/ruby-rtmidi/frames](http://rdoc.info/github/adamjmurray/ruby-rtmidi/frames)
+
+
+Contributing
+============
+
+Pull requests are welcome. The following must work:
+
+* `rake test` shows all unit tests are passing
+* Build and test the gem manually:
+    * `gem build rtmidi.gemspec`
+    * `gem install rtmidi-#{version}.gem`
+    * the examples can be run successfully against this version of the gem (`ruby examples/**`)
 
 
 Changelog
