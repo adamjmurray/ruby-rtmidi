@@ -1,3 +1,5 @@
+require 'mkmf'
+
 module RtMidi
   module Build
     module System
@@ -27,12 +29,24 @@ module RtMidi
         Dir.chdir(dir)
       end
 
+      def can_run(cmd)
+        find_executable(cmd)
+      end
+
       def run(cmd)
         puts cmd
         unless system(cmd)
           puts "Error: command exited with return value #{$?.exitstatus}"
           exit $?.exitstatus
         end
+      end
+
+      def linux_package_exists(pkg)
+        system "pkg-config --exists #{pkg}"
+      end
+
+      def linux_library(pkg)
+        `pkg-config --libs #{pkg}`.chomp
       end
 
     end

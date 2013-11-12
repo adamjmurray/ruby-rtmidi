@@ -6,6 +6,6 @@ task :make do
   require_relative '../lib/rtmidi/build/compiler'
   ext_dir = File.expand_path(File.dirname __FILE__)
   rtmidi_dir = "#{ext_dir}/rtmidi-2.0.1"
-  compiler = RtMidi::Build::Compiler.new(ext_dir, rtmidi_dir)
+  compiler = RtMidi::Build::Compiler.new(ext_dir, rtmidi_dir, verbose: true)
   compiler.compile
 end
