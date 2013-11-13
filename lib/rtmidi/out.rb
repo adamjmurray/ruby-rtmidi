@@ -46,12 +46,26 @@ module RtMidi
       Interface::midiout_close_port(@midiout)
     end
 
-    # Send a 3-byte MIDI channel message to the opened port.
+    # Send a 2 or 3 byte MIDI channel message to the opened port.
     #
     # Some channel messages only have 2 bytes in which case the 3rd byte is ignored.
     # @see #open_port
+    # @see #send_bytes
     def send_message(byte1, byte2, byte3=0)
       Interface::midiout_send_message(@midiout, byte1, byte2, byte3)
+    end
+
+    # Send an arbitrary multi-byte MIDI message to the opened port.
+    # This supports SysEx messages.
+    #
+    # @see #open_port
+    # @see #send_message
+    def send_bytes(*bytes)
+      bytes.flatten!
+      FFI::MemoryPointer.new(:int, bytes.length) do |p|
+        p.write_array_of_int(bytes)
+        Interface::midiout_send_bytes(@midiout, p, bytes.length)
+      end
     end
 
   end

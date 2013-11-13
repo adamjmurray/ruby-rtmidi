@@ -132,3 +132,12 @@ void midiout_send_message(rtmidi_ptr p, int byte1, int byte2, int byte3) {
   message[2] = byte3;
   midiout->sendMessage(&message);
 }
+
+void midiout_send_bytes(rtmidi_ptr p, int* bytes, int byte_count) {
+  RtMidiOut *midiout = static_cast<RtMidiOut *>(p);
+  std::vector<unsigned char> message;
+  for(int i=0; i<byte_count; i++) {
+    message.push_back(bytes[i]);
+  }
+  midiout->sendMessage(&message);
+}

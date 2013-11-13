@@ -50,4 +50,6 @@ extern "C"
   DLL_EXPORT void midiout_close_port(rtmidi_ptr p);
 
   DLL_EXPORT void midiout_send_message(rtmidi_ptr p, int byte1, int byte2, int byte3);
+
+  DLL_EXPORT void midiout_send_bytes(rtmidi_ptr p, int* bytes, int byte_count);
 };
