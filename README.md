@@ -9,18 +9,17 @@ a cross-platform C++ library for realtime MIDI input and output.
 Features:
 
 * List MIDI I/O ports
-* Send 3-byte MIDI messages to output ports
-* Listen for 3-byte messages on input ports
+* Send MIDI messages to output ports
+* Receive messages on input ports
 
-In other words, it can handle [channel messages](http://www.cs.cf.ac.uk/Dave/Multimedia/node158.html)
-(notes, control change, pitch bend, pressure, program),
-but there is no support for [SySex](https://en.wikipedia.org/wiki/SysEx#System_Exclusive_messages) messages yet.
+In other words, everything you'd want from a low-level MIDI library.
+It's still your responsibility to interpret the MIDI message byte streams!
 
 Supported Platforms:
 
 * OS X
 * Windows
-* Linux with [JACK](http://jackaudio.org/) or [ALSA](http://www.alsa-project.org)
+* Linux
 
 
 Requirements
@@ -58,8 +57,12 @@ Windows Setup
 
 Note: when installing under MinGW, this library may not work outside of MinGW. If that is a problem for you, use Visual Studio to install.
 
-Linux Setup (Ubuntu)
---------------------
+Linux Setup
+-----------
+
+Install [JACK](http://jackaudio.org/) or [ALSA](http://www.alsa-project.org).
+
+This should work on Ubuntu:
 
     sudo apt-get install g++
     sudo apt-get install jackd
