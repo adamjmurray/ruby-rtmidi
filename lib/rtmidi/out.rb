@@ -29,11 +29,7 @@ module RtMidi
     # @see #port_name
     # @see #open_port
     def port_names
-      @port_names ||= (
-        names = []
-        port_count.times{|i| names << Interface::midiout_port_name(@midiout, i) }
-        names
-      )       
+      @port_names ||= (0...port_count).map{|port_index| Interface::midiout_port_name(@midiout, port_index) }
     end
 
     # Open the MIDI output port at the given index.
@@ -43,7 +39,7 @@ module RtMidi
     end
 
     # Close the port, if opened.
-    def close_ports()
+    def close_port()
       Interface::midiout_close_port(@midiout)
     end
 

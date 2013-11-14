@@ -68,7 +68,7 @@ module RtMidi
     # void midiout_send_message(rtmidi_ptr p, int byte1, int byte2, int byte3);
     attach_function :midiout_send_message, [:pointer, :int, :int, :int], :void
 
-    # void midiout_send_bytes(rtmidi_ptr p, int* byte1);
+    # void midiout_send_bytes(rtmidi_ptr p, int* bytes);
     attach_function :midiout_send_bytes, [:pointer, :pointer, :int], :void
   end
 

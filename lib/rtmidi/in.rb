@@ -29,11 +29,7 @@ module RtMidi
     # @see #port_name
     # @see #open_port
     def port_names
-      @port_names ||= (
-        names = []
-        port_count.times{|i| names << Interface::midiin_port_name(@midiin, i) }
-        names
-      )       
+      @port_names ||= (0...port_count).map{|port_index| Interface::midiin_port_name(@midiin, port_index) }
     end
 
     # Open the MIDI input port at the given index.

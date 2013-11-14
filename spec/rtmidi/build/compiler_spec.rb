@@ -44,7 +44,6 @@ end
 require 'rtmidi/build/compiler'
 
 
-
 describe RtMidi::Build::Compiler do
 
   def compiler_for(platform, compiler, library=nil)
