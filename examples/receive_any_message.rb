@@ -23,7 +23,7 @@ port_index = select_port(midiin) until port_index
 # Use this approach when you need to receive any message including:
 # System Exclusive (SysEx), timing, active sensing
 
-midiin.set_varargs_callback do |*bytes|
+midiin.receive_message do |*bytes|
   puts bytes.inspect
 end
 

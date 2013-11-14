@@ -23,7 +23,7 @@ port_index = select_port(midiin) until port_index
 # Use this approach when you only need to receive channel message like:
 # MIDI notes, modulation/CC, pitch bend, aftertouch
 
-midiin.set_callback do |byte1, byte2, byte3|  
+midiin.receive_channel_message do |byte1, byte2, byte3|
   puts "#{byte1} #{byte2} #{byte3}"
 end
 
