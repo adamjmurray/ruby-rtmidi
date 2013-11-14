@@ -10,8 +10,8 @@ module RtMidi
 
       def platform
         case RbConfig::CONFIG['host_os'].downcase
-          when /darwin/ then :osx
-          when ((HOST_OS =~ /win/ and HOST_OS !~ /darwin/) or HOST_OS =~ /mingw/) then :windows
+          when /darwin/ then :osx  # check this first since the next case would match darwin for :windows
+          when /(win)|(mingw)/ then :windows
           when /linux/ then :linux
         end
       end
