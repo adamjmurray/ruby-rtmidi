@@ -1,7 +1,11 @@
 require 'mkmf'
 
 module RtMidi
+
+  # @private
   module Build
+
+    # @private
     module System
 
       def platform

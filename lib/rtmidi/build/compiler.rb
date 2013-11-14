@@ -1,7 +1,11 @@
 require_relative 'system'
 
 module RtMidi
+
+  # @private
   module Build
+
+    # @private
     class Compiler
       include RtMidi::Build::System
 

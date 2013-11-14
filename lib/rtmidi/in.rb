@@ -1,10 +1,11 @@
 module RtMidi
 
-  # Object for handling MIDI input. The Ruby representation of a RtMidiIn C++ object
+  # Object for handling MIDI input.
+  # The Ruby representation of a {http://www.music.mcgill.ca/~gary/rtmidi/classRtMidiIn.html RtMidiIn C++ object}..
   # @see Out
   class In
 
-    # Create a new RtMidiIn wrapper object.
+    # Create a new instance.
     def initialize
       @midiin = Interface::midiin_new()
       at_exit{ Interface::midiin_delete @midiin }
@@ -116,14 +117,17 @@ module RtMidi
     alias set_callback receive_message
 
 
-    # Cancel the current callback, if any.
-    # @see #set_callback
-    def cancel_callback
+    # Cancel the current receive callback, if any.
+    # @see #receive_message
+    # @see #receive_channel_message
+    def stop_receiving
       if @callback_set
         Interface::midiin_cancel_callback(@midiin)
         @callback_set = false
       end
     end
+
+    alias cancel_callback stop_receiving
 
   end
 

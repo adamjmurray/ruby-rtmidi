@@ -26,6 +26,6 @@ port_index = select_port(midiout) until port_index
 midiout.open_port(port_index)
 
 # Now send some SysEx messages
-midiout.send_bytes(240, 67, 16, 0, 16, 34, 247)
+midiout.send_message(240, 67, 16, 0, 16, 34, 247)
 # or if you prefer a single array argument:
-midiout.send_bytes( [240, 67, 16, 0, 16, 35, 247] )
+midiout.send_message( [240, 67, 16, 0, 16, 35, 247] )

@@ -26,9 +26,9 @@ port_index = select_port(midiout) until port_index
 midiout.open_port(port_index)
 
 for pitch in [60, 62, 64, 65, 67]
-  midiout.send_message(0x90, pitch, 127) # note on
+  midiout.send_channel_message(0x90, pitch, 127) # note on
   sleep 0.5
-  midiout.send_message(0x90, pitch, 0) # note off
+  midiout.send_channel_message(0x90, pitch, 0) # note off
 end
 
 sleep 0.5 # give the final note off time to release
