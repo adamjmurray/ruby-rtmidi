@@ -103,10 +103,7 @@ module RtMidi
     def receive_message &callback
       cancel_callback # otherwise first callback wins. I think last wins is more intuitive
       Interface::midiin_ignore_types(@midiin, false, false, false) #  Don't ignore sysex, timing, or active sensing messages.
-      callback_wrapper = lambda do |bytes, size|
-        yield *bytes.get_bytes(0, size).each_char.map{|c| c.ord }
-      end
-      Interface::midiin_set_varargs_callback(@midiin, callback_wrapper)
+      Interface::midiin_set_varargs_callback(@midiin, ->(bytes,size){ yield *bytes.read_array_of_uchar(size) })
       @callback_set = true
     end
 
