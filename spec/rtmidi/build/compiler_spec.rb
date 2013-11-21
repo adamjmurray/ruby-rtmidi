@@ -225,21 +225,21 @@ describe RtMidi::Build::Compiler do
       it 'includes the rtmidi_dir' do
         for compiler in gcc_compilers
           compiler.compile_ruby_rtmidi_wrapper
-          compiler.command.should =~ /-I#{rtmidi_dir}/
+          compiler.command.should =~ /\s-I#{rtmidi_dir}\b/
         end
       end
 
       it 'compiles ruby-rtmidi.cpp' do
         for compiler in gcc_compilers
           compiler.compile_ruby_rtmidi_wrapper
-          compiler.command.should =~ /-c\s+ruby-rtmidi\.cpp/
+          compiler.command.should =~ /\s-c\s+ruby-rtmidi\.cpp\b/
         end
       end
 
       it 'outputs ruby-rtmidi.o' do
         for compiler in gcc_compilers
           compiler.compile_ruby_rtmidi_wrapper
-          compiler.command.should =~ /-o\s+ruby-rtmidi\.o/
+          compiler.command.should =~ /\s-o\s+ruby-rtmidi\.o\b/
         end
       end
     end
@@ -252,22 +252,22 @@ describe RtMidi::Build::Compiler do
 
       it 'includes the rtmidi_dir' do
         cl_compiler.compile_ruby_rtmidi_wrapper
-        cl_compiler.command.should =~ /\/I#{rtmidi_dir}/
+        cl_compiler.command.should =~ /\s\/I#{rtmidi_dir}\b/
       end
 
       it 'compiles ruby-rtmidi.cpp' do
         cl_compiler.compile_ruby_rtmidi_wrapper
-        cl_compiler.command.should =~ /\/c\s+ruby-rtmidi\.cpp/
+        cl_compiler.command.should =~ /\s\/c\s+ruby-rtmidi\.cpp\b/
       end
 
       it 'outputs ruby-rtmidi.obj' do
         cl_compiler.compile_ruby_rtmidi_wrapper
-        cl_compiler.command.should =~ /\/Foruby-rtmidi\.obj/
+        cl_compiler.command.should =~ /\s\/Foruby-rtmidi\.obj\b/
       end
 
       it 'predefines __RUBY_RTMIDI_DLL__' do
         cl_compiler.compile_ruby_rtmidi_wrapper
-        cl_compiler.command.should =~ /\/D__RUBY_RTMIDI_DLL__/
+        cl_compiler.command.should =~ /\s\/D__RUBY_RTMIDI_DLL__\b/
       end
     end
   end
@@ -300,49 +300,59 @@ describe RtMidi::Build::Compiler do
       it 'includes the rtmidi_dir' do
         for compiler in gcc_compilers
           compiler.create_shared_library
-          compiler.command.should =~ /-I#{rtmidi_dir}/
+          compiler.command.should =~ /\s-I#{rtmidi_dir}\b/
         end
       end
 
       it 'includes the rtmidi_dir/include folder' do
         for compiler in gcc_compilers
           compiler.create_shared_library
-          compiler.command.should =~ /-I#{rtmidi_dir}\/include/
+          compiler.command.should =~ /\s-I#{rtmidi_dir}\/include\b/
         end
       end
 
       it 'creates a shared library' do
         for compiler in gcc_compilers
           compiler.create_shared_library
-          compiler.command.should =~ /-shared/
+          compiler.command.should =~ /\s-shared\b/
         end
       end
 
       it 'uses the output from the previous compilation steps' do
         for compiler in gcc_compilers
           compiler.create_shared_library
-          compiler.command.should =~ /ruby-rtmidi\.o\s+#{rtmidi_dir}\/RtMidi\.o/
+          compiler.command.should =~ /\sruby-rtmidi\.o\s+#{rtmidi_dir}\/RtMidi\.o\b/
         end
       end
 
       it 'outputs ruby-rtmidi.so' do
         for compiler in gcc_compilers
           compiler.create_shared_library
-          compiler.command.should =~ /-o\s+ruby-rtmidi\.so/
+          compiler.command.should =~ /\s-o\s+ruby-rtmidi\.so\b/
         end
       end
 
       context 'on osx' do
         it 'predefines __MACOSX_CORE__' do
           osx_compiler.create_shared_library
-          osx_compiler.command.should =~ /-D__MACOSX_CORE__/
+          osx_compiler.command.should =~ /\s-D__MACOSX_CORE__\b/
+        end
+
+        it 'includes the system libs: -framework CoreMIDI -framework CoreAudio -framework CoreFoundation' do
+          osx_compiler.create_shared_library
+          osx_compiler.command.should =~ /\s-framework\s+CoreMIDI\s+-framework\s+CoreAudio\s+-framework\s+CoreFoundation\b/
         end
       end
 
       context 'on windows' do
         it 'predefines __WINDOWS_MM__' do
           windows_gcc_compiler.create_shared_library
-          windows_gcc_compiler.command.should =~ /-D__WINDOWS_MM__/
+          windows_gcc_compiler.command.should =~ /\s-D__WINDOWS_MM__\b/
+        end
+
+        it 'includes the system lib winmm' do
+          windows_gcc_compiler.create_shared_library
+          windows_gcc_compiler.command.should =~ /\s-lwinmm\b/
         end
       end
 
@@ -350,14 +360,24 @@ describe RtMidi::Build::Compiler do
         context 'with ALSA' do
           it 'predefines __LINUX_ALSA__' do
             linux_alsa_compiler.create_shared_library
-            linux_alsa_compiler.command.should =~ /-D__LINUX_ALSA__/
+            linux_alsa_compiler.command.should =~ /\s-D__LINUX_ALSA__\b/
+          end
+
+          it 'includes the system lib for alsa' do
+            linux_alsa_compiler.create_shared_library
+            linux_alsa_compiler.command.should =~ /\slibalsa\b/
           end
         end
 
         context 'with JACK' do
           it 'predefines __UNIX_JACK__' do
             linux_jack_compiler.create_shared_library
-            linux_jack_compiler.command.should =~ /-D__UNIX_JACK__/
+            linux_jack_compiler.command.should =~ /\s-D__UNIX_JACK__\b/
+          end
+
+          it 'includes the system lib for jack' do
+            linux_jack_compiler.create_shared_library
+            linux_jack_compiler.command.should =~ /\slibjack\b/
           end
         end
       end
@@ -371,27 +391,32 @@ describe RtMidi::Build::Compiler do
 
       it 'includes the subfolder named include' do
         cl_compiler.create_shared_library
-        cl_compiler.command.should =~ /\/I#{rtmidi_dir}/
+        cl_compiler.command.should =~ /\s\/I#{rtmidi_dir}\b/
       end
 
       it 'includes the rtmidi_dir/include folder' do
         cl_compiler.create_shared_library
-        cl_compiler.command.should =~ /\/I#{rtmidi_dir}\/include/
+        cl_compiler.command.should =~ /\s\/I#{rtmidi_dir}\/include\b/
       end
 
       it 'uses the output from the previous compilation steps' do
         cl_compiler.create_shared_library
-        cl_compiler.command.should =~ /ruby-rtmidi\.obj\s+#{rtmidi_dir}\/RtMidi\.obj/
+        cl_compiler.command.should =~ /\sruby-rtmidi\.obj\s+#{rtmidi_dir}\/RtMidi\.obj\b/
       end
 
       it 'creates a DLL' do
         cl_compiler.create_shared_library
-        cl_compiler.command.should =~ /\/LD/
+        cl_compiler.command.should =~ /\s\/LD\b/
       end
 
       it 'predefines __WINDOWS_MM__' do
         cl_compiler.create_shared_library
-        cl_compiler.command.should =~ /\/D__WINDOWS_MM__/
+        cl_compiler.command.should =~ /\s\/D__WINDOWS_MM__\b/
+      end
+
+      it 'includes the system lib winmm' do
+        cl_compiler.create_shared_library
+        cl_compiler.command.should =~ /\bwinmm\.lib\b/
       end
     end
   end
