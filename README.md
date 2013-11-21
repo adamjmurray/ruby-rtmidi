@@ -84,9 +84,9 @@ See the following examples:
 
 * [list MIDI devices](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/list_ports.rb)
 * [MIDI channel output](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/send_channel_message.rb)
-* [MIDI channel input](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/receive_channel_input.rb)
+* [MIDI channel input](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/receive_channel_message.rb)
 * [arbitrary MIDI output](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/send_any_message.rb)
-* [arbitrary MIDI input](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/receive_any_input.rb)
+* [arbitrary MIDI input](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/receive_any_message.rb)
 
 Use the arbitrary MIDI IO to handle channel messages, SysEx, timing, and/or active sensing messages.
 If you only need channel messages (notes, modulation/CC, pitch bend, aftertouch), it's recommended you
