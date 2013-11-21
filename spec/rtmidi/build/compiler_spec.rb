@@ -66,28 +66,28 @@ describe RtMidi::Build::Compiler do
 
   describe '.new' do
     it 'fails for unrecognized platforms' do
-      ->{ compiler_for(:commodore64, :gcc) }.should raise_error(SystemExit, 'Unsupported platform commodore64')
+      ->{ compiler_for(:commodore64, :gcc) }.should raise_error 'Unsupported platform commodore64'
     end
 
     context 'on osx' do
       it 'fails if gcc/g++ is not available' do
-        ->{ compiler_for(:osx, nil) }.should raise_error(SystemExit, 'Cannot find gcc/g++ compiler')
+        ->{ compiler_for(:osx, nil) }.should raise_error 'Cannot find gcc/g++ compiler'
       end
     end
 
     context 'on linux' do
       it 'fails if gcc/g++ is not available' do
-        ->{ compiler_for(:linux, nil) }.should raise_error(SystemExit, 'Cannot find gcc/g++ compiler')
+        ->{ compiler_for(:linux, nil) }.should raise_error 'Cannot find gcc/g++ compiler'
       end
 
       it 'fails if neither JACK or ALSA is available' do
-        ->{ compiler_for(:linux, :gcc) }.should raise_error(SystemExit, 'Neither JACK or ALSA detected using pkg-config. Please install one of them first.')
+        ->{ compiler_for(:linux, :gcc) }.should raise_error 'Neither JACK or ALSA detected using pkg-config. Please install one of them first.'
       end
     end
 
     context 'on windows' do
       it 'fails if neither gcc/g++ or cl.exe is available' do
-        ->{ compiler_for(:windows, nil) }.should raise_error(SystemExit, 'Cannot find gcc/g++ or cl.exe compiler')
+        ->{ compiler_for(:windows, nil) }.should raise_error 'Cannot find gcc/g++ or cl.exe compiler'
       end
     end
   end

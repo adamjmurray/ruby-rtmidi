@@ -13,7 +13,7 @@ module RtMidi
         @ext_dir = ext_dir
         @rtmidi_dir = rtdmidi_dir
         @options = options
-        configure
+        configure # also validates the configuration and gives appropriate errors before we start compiling
       end
 
       def compile
@@ -89,7 +89,7 @@ module RtMidi
         @compiler = case
           when windows? && can_run('cl.exe') then :cl
           when can_run('gcc') && can_run('g++') then :gcc
-          else abort "Cannot find gcc/g++#{' or cl.exe' if windows?} compiler"
+          else raise "Cannot find gcc/g++#{' or cl.exe' if windows?} compiler"
         end
       end
 
@@ -101,9 +101,9 @@ module RtMidi
             case
               when linux_package_exists(:jack) then :jack
               when linux_package_exists(:alsa) then :alsa
-              else abort 'Neither JACK or ALSA detected using pkg-config. Please install one of them first.'
+              else raise 'Neither JACK or ALSA detected using pkg-config. Please install one of them first.'
             end
-          else abort "Unsupported platform #{platform}"
+          else raise "Unsupported platform #{platform}"
         end
       end
 
@@ -114,7 +114,7 @@ module RtMidi
           when windows? && cl? then '/D__WINDOWS_MM__'
           when linux? && jack? then '-D__UNIX_JACK__'
           when linux? && alsa? then '-D__LINUX_ALSA__'
-          else abort "Could not set predefines"
+          else raise "Could not set predefines"
         end
       end
 
@@ -124,7 +124,7 @@ module RtMidi
           when windows? && gcc? then '-lwinmm'
           when windows? && cl? then 'winmm.lib'
           when linux? then linux_library(@api)
-          else abort "Could not set system_libs"
+          else raise "Could not set system_libs"
         end
       end
     end
