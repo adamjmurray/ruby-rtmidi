@@ -9,3 +9,4 @@ module FFI::Library
 end
 
 require 'rtmidi'
+require 'rtmidi/build/compiler'

@@ -1,8 +1,7 @@
 require 'spec_helper'
-require 'rtmidi/build/system'
 
 # Stub out the system code and record what was done
-module RtMidi::Build::System
+class RtMidi::Build::Compiler
 
   def platform
     @options[:platform]
@@ -39,9 +38,6 @@ module RtMidi::Build::System
     @commands.last
   end
 end
-
-
-require 'rtmidi/build/compiler'
 
 
 describe RtMidi::Build::Compiler do
