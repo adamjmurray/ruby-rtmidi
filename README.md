@@ -1,7 +1,7 @@
 Ruby-RtMidi
 ===========
 
-[![Build Status](https://travis-ci.org/adamjmurray/ruby-rtmidi.png)](http://travis-ci.org/adamjmurray/ruby-rtmidi)
+[![Gem Version](https://badge.fury.io/rb/rtmidi.png)](http://badge.fury.io/rb/rtmidi) [![Build Status](https://travis-ci.org/adamjmurray/ruby-rtmidi.png?branch=master)](https://travis-ci.org/adamjmurray/ruby-rtmidi)
 
 [Ruby](http://www.ruby-lang.org/) wrapper for [RtMidi](http://www.music.mcgill.ca/~gary/rtmidi/index.html),
 a cross-platform C++ library for realtime MIDI input and output.
