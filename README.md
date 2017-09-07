@@ -11,6 +11,7 @@ Features:
 * List MIDI I/O ports
 * Send MIDI messages to output ports
 * Receive messages on input ports
+* Open named virtual MIDI IN and OUT ports (not supported on Windows)
 
 In other words, everything you'd want from a low-level MIDI library.
 It's still your responsibility to interpret the MIDI message byte streams!
@@ -87,10 +88,13 @@ See the following examples:
 * [MIDI channel input](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/receive_channel_message.rb)
 * [arbitrary MIDI output](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/send_any_message.rb)
 * [arbitrary MIDI input](http://rdoc.info/github/adamjmurray/ruby-rtmidi/file/examples/receive_any_message.rb)
+* [Open a virtual IN/OUT MIDI port] see also the examples
 
 Use the arbitrary MIDI IO to handle channel messages, SysEx, timing, and/or active sensing messages.
 If you only need channel messages (notes, modulation/CC, pitch bend, aftertouch), it's recommended you
 follow the channel IO examples.
+
+
 
 
 Documentation
@@ -114,6 +118,7 @@ Pull requests are welcome. The following must work:
 Changelog
 =========
 
+* 0.4 - Support for virtual midi ports
 * 0.3 - Support for arbitrary MIDI messages including SysEx
 * 0.2.2 - Compilable with Visual Studio on Windows
 * 0.2.1 - Linux support (thanks to [@quark-zju](https://github.com/quark-zju))
