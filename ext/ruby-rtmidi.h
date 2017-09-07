@@ -23,6 +23,10 @@ extern "C"
 
   DLL_EXPORT void midiin_open_port(rtmidi_ptr p, int port_index);
 
+  //DLL_EXPORT void midiin_open_virtual_port(rtmidi_ptr p);
+
+  DLL_EXPORT void midiin_open_virtual_port(rtmidi_ptr p, const char* virtual_port_name);
+
   DLL_EXPORT void midiin_close_port(rtmidi_ptr p);
 
   DLL_EXPORT void midiin_ignore_types(rtmidi_ptr p, bool sysex, bool timing, bool active_sensing);
@@ -32,6 +36,8 @@ extern "C"
   DLL_EXPORT void midiin_set_varargs_callback(rtmidi_ptr p, rtmidi_varargs_callback callback);
 
   DLL_EXPORT void midiin_cancel_callback(rtmidi_ptr p);
+
+  
   
 
   //================================================
@@ -46,6 +52,10 @@ extern "C"
   DLL_EXPORT const char* midiout_port_name(rtmidi_ptr midiout, int port_index);
 
   DLL_EXPORT void midiout_open_port(rtmidi_ptr p, int port_index);
+
+  //DLL_EXPORT void midiout_open_virtual_port(rtmidi_ptr p);
+
+  DLL_EXPORT void midiout_open_virtual_port(rtmidi_ptr p, const char* virtual_port_name);
 
   DLL_EXPORT void midiout_close_port(rtmidi_ptr p);
 

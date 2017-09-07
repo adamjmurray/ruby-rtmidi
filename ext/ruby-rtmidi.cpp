@@ -38,6 +38,18 @@ void midiin_open_port(rtmidi_ptr p, int port_index) {
   midiin->openPort(port_index);
 }
 
+// void midiin_open_virtual_port(rtmidi_ptr p) {
+//   RtMidiIn *midiin = static_cast<RtMidiIn *>(p);
+//   midiin->openVirtualPort();
+// }
+
+void midiin_open_virtual_port(rtmidi_ptr p, const char* virtual_port_name) {
+  RtMidiIn *midiin = static_cast<RtMidiIn *>(p);
+  const std::string virtalPortName( virtual_port_name, virtual_port_name +  strlen(virtual_port_name) );
+  //std::cout << "Opening port: " << virtual_port_name << " or " << virtalPortName << "\n"; 
+  midiin->openVirtualPort(virtalPortName);
+}
+
 void midiin_close_port(rtmidi_ptr p) {
   RtMidiIn *midiin = static_cast<RtMidiIn *>(p);
   midiin->closePort();
@@ -117,6 +129,17 @@ const char* midiout_port_name(rtmidi_ptr p, int port_index) {
 void midiout_open_port(rtmidi_ptr p, int port_index) {
   RtMidiOut *midiout = static_cast<RtMidiOut *>(p);
   midiout->openPort(port_index);
+}
+
+// void midiout_open_virtual_port(rtmidi_ptr p) {
+//   RtMidiOut *midiout = static_cast<RtMidiOut *>(p);
+//   midiout->openVirtualPort();
+// }
+
+void midiout_open_virtual_port(rtmidi_ptr p, const char* virtual_port_name) {
+  RtMidiOut *midiout = static_cast<RtMidiOut *>(p);
+  std::string virtalPortName(virtual_port_name);
+  midiout->openVirtualPort(virtalPortName);
 }
 
 void midiout_close_port(rtmidi_ptr p) {
