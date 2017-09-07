@@ -39,6 +39,10 @@ module RtMidi
       Interface::midiin_open_port(@midiin, index)
     end
 
+    def open_virtual_port(name)
+      Interface::midiin_open_virtual_port(@midiin,name)
+    end
+
     # Close the port, if opened.
     # @see #open_port
     def close_port()

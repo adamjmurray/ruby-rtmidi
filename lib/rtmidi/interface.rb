@@ -26,6 +26,12 @@ module RtMidi
     # void midiin_open_port(rtmidi_ptr p, int port_index);
     attach_function :midiin_open_port, [:pointer, :int], :void
 
+    # void midiin_virtual_port(rtmidi_ptr p);
+    #attach_function :midiin_open_virtual_port, [:pointer], :void
+    
+    # void midiin_virtual_port(rtmidi_ptr p,char* str);
+    attach_function :midiin_open_virtual_port, [:pointer, :string ], :void
+
     # void midiin_close_port(rtmidi_ptr p, int port_index);
     attach_function :midiin_close_port, [:pointer], :void
 
@@ -35,6 +41,9 @@ module RtMidi
     # void midiin_set_callback(rtmidi_ptr p, rtmidi_callback callback);
     callback :rtmidi_callback, [:int, :int, :int], :void
     attach_function :midiin_set_callback, [:pointer, :rtmidi_callback], :void
+
+
+
 
     # void midiin_set_varargs_callback(rtmidi_ptr p, rtmidi_varargs_callback callback);
     callback :rtmidi_varargs_callback, [:pointer, :int], :void
@@ -58,6 +67,12 @@ module RtMidi
   
     # const char * midiout_port_name(rtmidi_ptr midiout, int port_index);
     attach_function :midiout_port_name, [:pointer, :int], :string
+
+    # void midiout_virtual_port(rtmidi_ptr p);
+    #attach_function :midiout_open_virtual_port, [:pointer], :void
+    
+    # void midiout_virtual_port(rtmidi_ptr p,char* str);
+    attach_function :midiout_open_virtual_port, [:pointer, :string ], :void
 
     # void midiout_open_port(rtmidi_ptr p, int port_index);
     attach_function :midiout_open_port, [:pointer, :int], :void
